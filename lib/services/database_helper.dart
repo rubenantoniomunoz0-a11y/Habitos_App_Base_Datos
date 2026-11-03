@@ -73,7 +73,7 @@ class DatabaseHelper {
     return null;
   }
 
-  // Cuenta cuántos usuarios hay 
+  // Cuenta cuántos usuarios hay
   Future<int> contarUsuarios() async {
     final db = await database;
     final res = await db.rawQuery('SELECT COUNT(*) FROM usuarios');

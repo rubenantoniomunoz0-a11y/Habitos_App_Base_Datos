@@ -37,6 +37,12 @@ class _RegistroScreenState extends State<RegistroScreen> {
       return;
     }
 
+    // 1. Comprobamos cuántos usuarios hay en la base de datos
+    final int totalUsuarios = await _dbHelper.contarUsuarios();
+
+    // 2. Si no hay ninguno (es el primero), será administrador. Si ya hay, será usuario.
+    final String rolAsignado = (totalUsuarios == 0) ? 'administrador' : 'usuario';
+
     final nuevoUsuario = Usuario(
       usuario: _userController.text.trim(),
       nombre: _nombreController.text.trim(),
@@ -44,7 +50,7 @@ class _RegistroScreenState extends State<RegistroScreen> {
       email: _emailController.text.trim(),
       password: _passController.text.trim(),
       fechaCreacion: DateTime.now().toIso8601String(),
-      rol: 'administrador', // Por defecto
+      rol: rolAsignado, // Aquí le pasamos el rol calculado
     );
 
     try {
@@ -59,6 +65,7 @@ class _RegistroScreenState extends State<RegistroScreen> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error: El usuario ya existe')));
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
