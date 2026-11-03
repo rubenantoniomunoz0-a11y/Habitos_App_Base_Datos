@@ -44,7 +44,7 @@ class _RegistroScreenState extends State<RegistroScreen> {
       email: _emailController.text.trim(),
       password: _passController.text.trim(),
       fechaCreacion: DateTime.now().toIso8601String(),
-      rol: 'usuario', // Por defecto
+      rol: 'administrador', // Por defecto
     );
 
     try {
