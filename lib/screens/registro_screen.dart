@@ -31,6 +31,34 @@ class _RegistroScreenState extends State<RegistroScreen> {
     super.dispose();
   }
 
+  void _registrar() async {
+    if (_userController.text.isEmpty || _passController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Usuario y contraseña son obligatorios')));
+      return;
+    }
+
+    final nuevoUsuario = Usuario(
+      usuario: _userController.text.trim(),
+      nombre: _nombreController.text.trim(),
+      apellidos: _apellidosController.text.trim(),
+      email: _emailController.text.trim(),
+      password: _passController.text.trim(),
+      fechaCreacion: DateTime.now().toIso8601String(),
+      rol: 'usuario', // Por defecto
+    );
+
+    try {
+      // Llamada al DatabaseHelper
+      await _dbHelper.insertarUsuario(nuevoUsuario);
+
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Registro exitoso. Inicia sesión.')));
+      Navigator.pop(context);
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error: El usuario ya existe')));
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
