@@ -73,6 +73,13 @@ class DatabaseHelper {
     return null;
   }
 
+  // Cuenta cuántos usuarios hay 
+  Future<int> contarUsuarios() async {
+    final db = await database;
+    final res = await db.rawQuery('SELECT COUNT(*) FROM usuarios');
+    return Sqflite.firstIntValue(res) ?? 0;
+  }
+
   // --- CRUD DE HÁBITOS ---
   Future<int> insertarHabito(int idUsuario, String nombre, int color) async {
     final db = await database;
