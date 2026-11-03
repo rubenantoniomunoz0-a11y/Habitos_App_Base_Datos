@@ -12,7 +12,7 @@ class DatoEstadistica extends StatelessWidget {
     required this.etiqueta,
     required this.valor,
     required this.icono,
-    this.color = Colors.blue, 
+    this.color = Colors.blue,
   });
 
   @override
