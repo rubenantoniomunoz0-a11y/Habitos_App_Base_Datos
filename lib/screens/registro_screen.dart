@@ -63,7 +63,19 @@ class _RegistroScreenState extends State<RegistroScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Registro')),
-      body: const Center(child: Text('Diseño en construcción...')), // Relleno temporal
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          children: [
+            CampoTextoApp(label: 'Usuario', controller: _userController),
+            CampoTextoApp(label: 'Nombre', controller: _nombreController),
+            CampoTextoApp(label: 'Apellidos', controller: _apellidosController),
+            CampoTextoApp(label: 'Email', controller: _emailController),
+            CampoTextoApp(label: 'Contraseña', controller: _passController, ocultarContenido: true),
+            BotonPrincipal(texto: 'Registrarse', onPressed: _registrar),
+          ],
+        ),
+      ),
     );
   }
 }
